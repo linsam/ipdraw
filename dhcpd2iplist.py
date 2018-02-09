@@ -5,7 +5,7 @@
 # of the file has sat for a while before processing).
 
 import sys
-addrs = []
+addrs = {}
 inlease = False
 for line in sys.stdin:
     if line.startswith("#"):
@@ -17,8 +17,11 @@ for line in sys.stdin:
         inlease = True
         address = line.split()[1]
         state = None
+        name = None
     if  line.strip().startswith("binding state "):
         state = line.split()[2].strip(";")
+    if line.strip().startswith("client-hostname"):
+        name = line.strip().split(" ",1)[1].strip('";')
     if line.strip() == "}":
         if not inlease:
             raise Exception("parse error")
@@ -29,14 +32,18 @@ for line in sys.stdin:
             if address in addrs:
                 print >>sys.stderr, "Address", address, "already in list"
             else:
-                addrs.append(address)
+                addrs[address] = name
         elif state == "free":
             if address in addrs:
                 print >>sys.stderr, "Address", address, "removed"
-                addrs.remove(address)
+                del addrs[address]
         else:
             raise Exception("Unknown state '%s'" % state)
-for i in sorted(addrs):
-    print i
+for addr in sorted(addrs.keys()):
+    name = addrs[addr]
+    if name:
+        print addr, name
+    else:
+        print addr
 
 

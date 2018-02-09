@@ -147,6 +147,43 @@ def testhtml3(n):
     print "<table>"
     print "</body></html>"
 
+def testhtml4():
+    # First pass, we'll just do the /24 subnet of the first address we find
+    # This function expects a local file 'iplist.txt' which contains an IP
+    # address per line, and optionally a space followed by text (e.g. host
+    # name)
+    addrs = {}
+    for line in file("iplist.txt"):
+        if " " in line:
+            addr, val = line.split(" ", 1)
+        else:
+            addr = line.strip()
+            val = ""
+        addrs[addr] = val
+    firstAddress = addrs.keys()[0]
+    prefix = ".".join(firstAddress.split('.')[0:3])
+
+    n = 16
+    print "<html><head><title>test html</title>"
+    print "<style>td {width:3.5em; height:3.5em; background: #ccc; text-align:center;border: 2px solid black;} table {border-collapse: collapse;} td.nor {border-right-style: hidden;} td.not {border-top-style: hidden;} td.used {background: #66f;}</style>"
+    print "</head><body>"
+    print "<p>Network %s.N</p>" % prefix
+    print "<table>"
+    for y in range(n):
+        print " <tr>"
+        for x in range(n):
+            d = xy2d(n,x,y)
+            class_ = ""
+            text = ""
+            thisAddress = "%s.%i" % (prefix, d)
+            if thisAddress in addrs:
+                class_ = 'class="used"'
+                text = addrs[thisAddress]
+            print '  <td %s>%i<br/>%s</td>' % (class_, d, text)
+        print " </tr>"
+    print "<table>"
+    print "</body></html>"
+
 def testpng():
     import Image
     i = Image.new("RGB", (256,256))
@@ -160,4 +197,5 @@ def testpng():
 #testhtml2(16, 2)
 #testhtml3(16)
 #testhtml(16)
-testpng()
+#testpng()
+testhtml4()
