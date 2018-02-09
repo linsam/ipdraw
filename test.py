@@ -165,7 +165,19 @@ def testhtml4():
 
     n = 16
     print "<html><head><title>test html</title>"
-    print "<style>td {width:3.5em; height:3.5em; background: #ccc; text-align:center;border: 2px solid black;} table {border-collapse: collapse;} td.nor {border-right-style: hidden;} td.not {border-top-style: hidden;} td.used {background: #66f;}</style>"
+    print """<style>
+        td {
+            width: 3.5em;
+            height: 3.5em;
+            background: #ccc;
+            text-align: center;
+            border: 2px solid black;
+        }
+        table {border-collapse: collapse;}
+        td.nor {border-right-style: hidden;}
+        td.not {border-top-style: hidden;}
+        td.used {background: #66f;}
+    </style>"""
     print "</head><body>"
     print "<p>Network %s.N</p>" % prefix
     print "<table>"
