@@ -166,9 +166,15 @@ def testhtml4():
     n = 16
     print "<html><head><title>test html</title>"
     print """<style>
+        /* Optional: Make table fixed, based in part on
+           https://stackoverflow.com/questions/22835430/make-table-cells-square
+        */
+        table {width: 100%; table-layout: fixed;}
+        td {overflow: hidden; width: 6.25%; position: relative;}
+        td:after {content: ''; display: block; margin-top: 100%;}
+        td div {position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+        /* End optional fixed-table stuff */
         td {
-            width: 3.5em;
-            height: 3.5em;
             background: #ccc;
             text-align: center;
             border: 2px solid black;
@@ -191,7 +197,7 @@ def testhtml4():
             if thisAddress in addrs:
                 class_ = 'class="used"'
                 text = addrs[thisAddress]
-            print '  <td %s>%i<br/>%s</td>' % (class_, d, text)
+            print '  <td %s><div>%i<br/>%s</div></td>' % (class_, d, text)
         print " </tr>"
     print "<table>"
     print "</body></html>"
