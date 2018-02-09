@@ -1,0 +1,3 @@
+IP draw outputs IP address maps like XKCD 195, which uses a hilbert curve to organize IP networks.
+
+Intended targets include HTML and bitmaps.
