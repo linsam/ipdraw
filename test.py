@@ -175,14 +175,14 @@ def testhtml4():
         td div {position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
         /* End optional fixed-table stuff */
         td {
-            background: #ccc;
+            background: #ddd;
             text-align: center;
             border: 2px solid black;
         }
         table {border-collapse: collapse;}
         td.nor {border-right-style: hidden;}
         td.not {border-top-style: hidden;}
-        td.used {background: #66f;}
+        td.used {background: #88f;}
     </style>"""
     print "</head><body>"
     print "<p>Network %s.N</p>" % prefix
